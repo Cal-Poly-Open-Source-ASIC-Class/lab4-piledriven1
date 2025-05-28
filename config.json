@@ -1,0 +1,13 @@
+{
+    "DESIGN_NAME": "async_fifo",
+    "VERILOG_FILES": [
+        "dir::rtl/*.sv",
+        "dir::rtl/*.v"
+    ],
+    "CLOCK_PORT": ["clk_r", "clk_w"],
+    "PNR_SDC_FILE" :"dir::rtl/*.sdc",
+    "SIGNOFF_SDC_FILE" :"dir::rtl/*.sdc",
+    "FP_PDN_VOFFSET": 7,
+    "FP_PDN_HOFFSET": 7,
+    "FP_PDN_SKIPTRIM": true
+}

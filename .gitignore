@@ -1,3 +1,4 @@
+macros/
 runs/
 *.vcd
 *.fst
@@ -6,3 +7,5 @@ runs/
 *obj_dir
 *sim_build
 *results.xml
+.vscode/*
+.venv
