@@ -1,5 +1,5 @@
 {
-    "DESIGN_NAME": "async_fifo",
+    "DESIGN_NAME": "afifo",
     "VERILOG_FILES": [
         "dir::rtl/*.sv",
         "dir::rtl/*.v"
