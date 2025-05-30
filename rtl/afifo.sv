@@ -1,56 +1,60 @@
+`include "synchronizer.sv"
+`include "wptr_handler.sv"
+`include "rptr_handler.sv"
+`include "fifo_mem.sv"
+
 `timescale 1ns / 1ps
 
-module async_fifo #(
+module afifo #(
     parameter DATA_WIDTH = 32
 ) (
-    input logic clk_r, clk_w, arst,
+    input logic clk_w, clk_r,
+    input logic arst,
     input logic we_i, re_i,
-    input logic [DATA_WIDTH - 1:0] data_r,
-    output logic empty_o, full_o,
-    output logic [DATA_WIDTH - 1:0] data_w
+    input logic [DATA_WIDTH-1:0] data_w,
+    output logic [DATA_WIDTH-1:0] data_r,
+    output logic full, empty
 );
-    logic [DATA_WIDTH - 1:0] data_ff;
+    localparam DEPTH = 8;
+    localparam PTR_WIDTH = $clog2(DEPTH);
 
-    // 2-stage clock synchronizer
-    always_ff @ (posedge clk_r or negedge arst) begin
-        if(arst) begin
-            full_o <= 0;
-            data_ff <= 0;
-        end
-        else begin
-            if(re_i && empty_o) begin
-                data_ff <= data_r;
-                full_o <= 0;
-            end
-            else if(re_i && !empty_o) begin
-                data_ff <= data_r;
-                full_o <= 1;
-            end
-            else begin
-                data_ff <= 0;
-                full_o <= (data_ff != 0) ? 1 : 0;
-            end
-        end
-    end
+    logic [PTR_WIDTH:0] g_wptr_sync, g_rptr_sync;
+    logic [PTR_WIDTH:0] b_wptr, b_rptr;
+    logic [PTR_WIDTH:0] g_wptr, g_rptr;
 
-    always_ff @(posedge clk_w or negedge arst) begin
-        if(arst) begin
-            empty_o <= 1;
-            data_w <= 0;
-        end
-        else begin
-            if(we_i && full_o) begin
-                data_w <= data_ff;
-                empty_o <= 0;
-            end
-            else if(we_i && !full_o) begin
-                data_w <= data_ff;
-                empty_o <= 0;
-            end
-            else begin
-                data_w <= 0;
-                empty_o <= (data_ff != 0) ? 0 : 1;
-            end
-        end
-    end
+    logic [PTR_WIDTH-1:0] waddr, raddr;
+
+    //write pointer to read clock domain
+    synchronizer #(PTR_WIDTH) sync_wptr (
+        .*,
+        .clk(clk_r),
+        .d_in(g_wptr),
+        .d_out(g_wptr_sync)
+    );
+    //read pointer to write clock domain 
+    synchronizer #(PTR_WIDTH) sync_rptr (
+        .*,
+        .clk(clk_w),
+        .d_in(g_rptr),
+        .d_out(g_rptr_sync)
+    );
+
+    wptr_handler #(PTR_WIDTH) wptr_h(
+        .*,
+        .w_en(we_i)
+    );
+
+    rptr_handler #(PTR_WIDTH) rptr_h(
+        .*,
+        .r_en(re_i)
+    );
+
+    fifo_mem #(DATA_WIDTH, DEPTH) fifo_mem(
+        .*,
+        .w_en(we_i),
+        .r_en(re_i),
+        .data_in(data_w),
+        .data_out(data_r)
+    );
+
 endmodule
