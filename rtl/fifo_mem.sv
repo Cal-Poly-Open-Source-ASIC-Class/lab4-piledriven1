@@ -19,12 +19,15 @@ module fifo_mem #(
             fifo[b_wptr[PTR_WIDTH-1:0]] <= data_in;
         end
     end
-    /*
+    
     always@(posedge clk_r) begin
-    if(r_en & !empty) begin
-        data_out <= fifo[b_rptr[PTR_WIDTH-1:0]];
+        if(arst) begin
+            data_out <= 0;
+        end
+        else if(r_en & !empty) begin
+            data_out <= fifo[b_rptr[PTR_WIDTH-1:0]];
+        end
     end
-    end
-    */
-    assign data_out = (arst || (!arst && !r_en)) ? 0 : fifo[b_rptr[PTR_WIDTH-1:0]];
+    
+    // assign data_out = (arst) ? 0 : fifo[b_rptr[PTR_WIDTH-1:0]];
 endmodule

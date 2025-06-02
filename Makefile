@@ -148,6 +148,9 @@ clean:
 	rm -f `find tests -iname "*.log"`
 	rm -rf `find tests -iname "obj_dir"`
 	@if [ -d gl ]; then rm -rf gl; fi
+	rm -rf `find cocotests -iname "sim_build"`
+	rm -rf `find cocotests -iname "results.xml"`
+	rm -rf `find cocotests -iname "dump.fst"`
 
 .PHONY: VERILOG_SOURCES
 VERILOG_SOURCES: 

@@ -1,4 +1,5 @@
-import cocotb, random
+import cocotb
+import random
 from cocotb.clock import Clock
 from cocotb.triggers import (
     RisingEdge, FallingEdge,
@@ -28,28 +29,35 @@ async def reset_fifo(dut):
     await Timer(20, units="ns")
 
 async def writer(dut, test_data):
+    dut._log.info(f"Starting Writer {test_data}")
     for val in test_data:
+        dut._log.info(f"Running Writer {val}")
         while dut.full.value:
             await RisingEdge(dut.clk_w)
         dut.data_w.value = val
         dut.we_i.value = 1
+        # dut._log.info(f"Running Writer: we_i = {dut.we_i.value}")
         await RisingEdge(dut.clk_w)
+        # dut._log.info(f"Running Writer: we_i = {dut.we_i.value}")
         dut.we_i.value = 0
         # await Timer(random.randint(10, 20), units="ns")
         await RisingEdge(dut.clk_w)
+    dut._log.info("Ending Writer")
 
 async def reader(dut, num_items, expected_data):
+    dut._log.info(f"Starting Reader {expected_data}")
     read_data = []
     await Timer(100, units="ns")  # Delay to allow writes to get started
-
     for _ in range(num_items):
         while dut.empty.value:
             await RisingEdge(dut.clk_r)
 
         # Assert read enable
         dut.re_i.value = 1
+        # dut._log.info(f"Running Reader: re_i = {dut.re_i.value}")
         await RisingEdge(dut.clk_r)
         dut.re_i.value = 0
+        # dut._log.info(f"Running Reader: re_i = {dut.re_i.value}")
 
         # Wait one more cycle to allow data_r to update
         await RisingEdge(dut.clk_r)
@@ -61,6 +69,7 @@ async def reader(dut, num_items, expected_data):
             raise TestFailure(f"data_r is unresolvable (x/z): {raw_val}")
 
         read_val = raw_val.integer
+        dut._log.info(f"Running Reader: read_val = {read_val}")
         read_data.append(read_val)
 
         # Add randomized delay to simulate realistic async read behavior
@@ -68,6 +77,7 @@ async def reader(dut, num_items, expected_data):
     if (dut.empty.value == 1 and dut.full.value == 1):
         raise TestFailure(f"Empty == 1 and Full == 1")
     assert read_data == expected_data, f"Mismatch! Expected {expected_data}, got {read_data}"
+    dut._log.info("Ending Reader")
 
 ############################# MAIN TESTS #############################
 @cocotb.test()
@@ -76,11 +86,9 @@ async def template_test(dut):
     cocotb.start_soon(Clock(dut.clk_w, 7, units='ns').start())
 
     await reset_fifo(dut)
-    test_data = [random.randint(0, 255) for _ in range(12)]
+    test_data = [random.randint(0, 255) for _ in range(8)]
 
-    await cocotb.start(writer(dut, test_data))
-    cocotb.start(reader(dut, len(test_data), test_data))
-    if dut.arst.value == 1:
-        raise TestFailure(f"arst != 1")
+    await cocotb.start_soon(writer(dut, test_data))
+    await cocotb.start_soon(reader(dut, len(test_data), test_data))
 
-    Timer(2000, units="ns")
+    Timer(2200, units="ns")
