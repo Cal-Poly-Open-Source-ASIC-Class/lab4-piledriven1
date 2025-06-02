@@ -28,6 +28,6 @@ module fifo_mem #(
             data_out <= fifo[b_rptr[PTR_WIDTH-1:0]];
         end
     end
-    
+
     // assign data_out = (arst) ? 0 : fifo[b_rptr[PTR_WIDTH-1:0]];
 endmodule

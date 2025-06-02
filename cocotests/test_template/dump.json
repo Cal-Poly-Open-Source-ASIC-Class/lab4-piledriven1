@@ -1,11 +1,16 @@
 {
   "extensionVersion": "1.3.4",
   "fileName": "/home/piledriven/cpe470/asic-tools/workspace/lab4-piledriven1/cocotests/test_template/dump.fst",
-  "markerTime": null,
+  "markerTime": 0,
   "altMarkerTime": null,
-  "selectedSignal": null,
-  "zoomRatio": 0.002,
-  "scrollLeft": 0,
+  "selectedSignal": {
+    "name": "afifo.re_i",
+    "numberFormat": "binary",
+    "msb": -1,
+    "lsb": -1
+  },
+  "zoomRatio": 0.002250982580127867,
+  "scrollLeft": 320,
   "displayedSignals": [
     {
       "netlistId": 1,
@@ -74,6 +79,54 @@
     {
       "netlistId": 12,
       "name": "afifo.data_r",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 13,
+      "name": "afifo.b_wptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 14,
+      "name": "afifo.b_rptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 9,
+      "name": "afifo.g_rptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 8,
+      "name": "afifo.g_rptr_sync",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 7,
+      "name": "afifo.g_wptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 6,
+      "name": "afifo.g_wptr_sync",
       "numberFormat": "hexadecimal",
       "colorIndex": 0,
       "renderType": "multiBit",
