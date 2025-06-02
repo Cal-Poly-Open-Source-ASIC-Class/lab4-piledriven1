@@ -16,7 +16,7 @@ module rptr_handler #(
     assign g_rptr_next = (b_rptr_next >> 1) ^ b_rptr_next;
     assign rempty = (g_wptr_sync == g_rptr_next);
     
-    always@(posedge clk_r or posedge arst) begin
+    always_ff @ (posedge clk_r or posedge arst) begin
         if(arst) begin
             b_rptr <= 0;
             g_rptr <= 0;
@@ -27,8 +27,7 @@ module rptr_handler #(
         end
     end
     
-    always@(posedge clk_r or posedge arst) begin
-        if(!arst) empty <= 1;
-        else        empty <= rempty;
+    always_ff @ (posedge clk_r or posedge arst) begin
+        empty <= (arst) ? 1 : rempty;
     end
 endmodule

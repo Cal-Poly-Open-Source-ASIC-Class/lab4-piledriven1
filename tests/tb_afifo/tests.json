@@ -1,0 +1,136 @@
+{
+  "extensionVersion": "1.3.4",
+  "fileName": "/home/piledriven/cpe470/asic-tools/workspace/lab4-piledriven1/tests/tb_afifo/tb_afifo.vcd",
+  "markerTime": null,
+  "altMarkerTime": null,
+  "selectedSignal": {
+    "name": "tb_afifo.UUT.g_rptr_sync",
+    "numberFormat": "hexadecimal",
+    "msb": 3,
+    "lsb": 0
+  },
+  "zoomRatio": 0.007804815588678652,
+  "scrollLeft": 0,
+  "displayedSignals": [
+    {
+      "netlistId": 3,
+      "name": "tb_afifo.clk_r",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 4,
+      "name": "tb_afifo.clk_w",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 5,
+      "name": "tb_afifo.arst",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 6,
+      "name": "tb_afifo.re_i",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 7,
+      "name": "tb_afifo.we_i",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 11,
+      "name": "tb_afifo.data_w",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 8,
+      "name": "tb_afifo.empty",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 9,
+      "name": "tb_afifo.full",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 10,
+      "name": "tb_afifo.data_r",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 26,
+      "name": "tb_afifo.UUT.b_wptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 27,
+      "name": "tb_afifo.UUT.b_rptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 28,
+      "name": "tb_afifo.UUT.g_wptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 29,
+      "name": "tb_afifo.UUT.g_rptr",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 24,
+      "name": "tb_afifo.UUT.g_wptr_sync",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 25,
+      "name": "tb_afifo.UUT.g_rptr_sync",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    }
+  ]
+}

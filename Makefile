@@ -1,6 +1,7 @@
 INC_DIR := ./include
-
+SCRIPT_FILE := synth_check.ys
 RTL_SRCS 	:= $(shell find rtl -name '*.sv' -or -name '*.v')
+GL_SRCS 	:= $(shell [ -d gl ] && find gl -name '*.v')
 
 INCLUDE_DIRS := $(sort $(dir $(shell find . -name '*.svh')))
 RTL_DIRS	 := $(sort $(dir $(RTL_SRCS)))
@@ -33,7 +34,7 @@ SIMULATOR := iverilog
 LINT_INCLUDES := -I$(PDKPATH) -I$(realpath gl)
 SIMULATOR_ARGS := -g2012 -DFUNCTIONAL -DUSE_POWER_PINS 
 SIMULATOR_BINARY := a.out
-SIMULATOR_SRCS = $(realpath gl)/*  *.sv
+SIMULATOR_SRCS = $(realpath gl)/* *.sv
 endif
 
 LINT_OPTS += --lint-only --timing $(LINT_INCLUDES)
@@ -84,11 +85,13 @@ tests/%: FORCE
 itests: 
 	@ICARUS=1 make tests
 
-RECENT=$(shell ls runs | tail -n 1)
-GL_NAME =$(shell ls runs/$(RECENT)/final/pnl/)
+# Added line to copy macros/dffram256x32/hdl/gl to gl
 gl_tests:
 	@mkdir -p gl
-	@cat scripts/gatelevel.vh runs/$(RECENT)/final/pnl/$(GL_NAME) > gl/$(GL_NAME)
+	@cp runs/recent/final/pnl/* gl/
+	@cat scripts/gatelevel.vh gl/*.v > gl/temp
+	@mv -f gl/temp gl/*.v
+	@rm -f gl/temp
 	@GL=1 make tests
 
 .PHONY: $(TESTS)
@@ -125,6 +128,10 @@ openlane:
 	@`which openlane` --flow Classic $(OPENLANE_CONF)
 	@cd runs && rm -f recent && ln -sf `ls | tail -n 1` recent
 
+openlane-no-drc:
+	@`which openlane` --flow Classic $(OPENLANE_CONF) --skip magic.drc --skip klayout.drc
+	@cd runs && rm -f recent && ln -sf `ls | tail -n 1` recent
+
 %.json %.yaml: FORCE
 	@echo $@
 	OPENLANE_CONF=$@ make openlane
@@ -140,6 +147,7 @@ clean:
 	rm -f `find tests -iname "a.out"`
 	rm -f `find tests -iname "*.log"`
 	rm -rf `find tests -iname "obj_dir"`
+	@if [ -d gl ]; then rm -rf gl; fi
 
 .PHONY: VERILOG_SOURCES
 VERILOG_SOURCES: 

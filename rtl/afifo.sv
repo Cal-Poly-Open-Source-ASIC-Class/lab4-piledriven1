@@ -1,8 +1,3 @@
-`include "synchronizer.sv"
-`include "wptr_handler.sv"
-`include "rptr_handler.sv"
-`include "fifo_mem.sv"
-
 `timescale 1ns / 1ps
 
 module afifo #(

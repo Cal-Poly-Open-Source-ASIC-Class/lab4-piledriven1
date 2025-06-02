@@ -1,0 +1,83 @@
+{
+  "extensionVersion": "1.3.4",
+  "fileName": "/home/piledriven/cpe470/asic-tools/workspace/lab4-piledriven1/cocotests/test_template/dump.fst",
+  "markerTime": null,
+  "altMarkerTime": null,
+  "selectedSignal": null,
+  "zoomRatio": 0.002,
+  "scrollLeft": 0,
+  "displayedSignals": [
+    {
+      "netlistId": 1,
+      "name": "afifo.clk_r",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 2,
+      "name": "afifo.clk_w",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 0,
+      "name": "afifo.arst",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 5,
+      "name": "afifo.we_i",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 4,
+      "name": "afifo.re_i",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 10,
+      "name": "afifo.full",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 11,
+      "name": "afifo.empty",
+      "numberFormat": "binary",
+      "colorIndex": 0,
+      "renderType": "binary",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 3,
+      "name": "afifo.data_w",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    },
+    {
+      "netlistId": 12,
+      "name": "afifo.data_r",
+      "numberFormat": "hexadecimal",
+      "colorIndex": 0,
+      "renderType": "multiBit",
+      "valueLinkCommand": ""
+    }
+  ]
+}

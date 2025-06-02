@@ -17,7 +17,7 @@ module wptr_handler #(
     assign b_wptr_next = b_wptr + {{3'b0}, {(w_en & !full)}};
     assign g_wptr_next = (b_wptr_next >>1)^b_wptr_next;
 
-    always@(posedge clk_w or posedge arst) begin
+    always_ff @ (posedge clk_w or posedge arst) begin
         if(arst) begin
             b_wptr <= 0; // set default value
             g_wptr <= 0;
@@ -28,9 +28,8 @@ module wptr_handler #(
         end
     end
 
-    always@(posedge clk_w or posedge arst) begin
-        if(arst) full <= 0;
-        else        full <= wfull;
+    always_ff @ (posedge clk_w or posedge arst) begin
+        full <= (arst) ? 0 : wfull;
     end
 
     assign wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]});

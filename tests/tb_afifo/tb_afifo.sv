@@ -6,7 +6,7 @@ module tb_afifo();
     localparam STEP = 13;
 
     logic clk_r, clk_w, arst, re_i, we_i;
-    logic empty_o, full_o;
+    logic empty, full;
     logic [DATA_WIDTH - 1:0] data_r, data_w;
 
     `ifdef USE_POWER_PINS
@@ -40,12 +40,19 @@ module tb_afifo();
         we_i = 1;
 
         #STEP;
-        re_i = 1;
+        data_w = 32'hdeadbeef;
+
+        #STEP
+        data_w = 32'hdeaddead;
+
+        #STEP
+        data_w = 32'hbeefbeef;
 
         #STEP;
-        
+        re_i = 1;
+        data_w = 32'hfeedfeed;
 
-        #(STEP * 5);
+        #(STEP * 7);
         $finish();
     end
 endmodule
