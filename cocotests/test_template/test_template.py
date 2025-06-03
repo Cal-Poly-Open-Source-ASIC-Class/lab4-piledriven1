@@ -32,7 +32,7 @@ async def writer(dut, test_data):
     dut._log.info(f"Starting Writer {test_data}")
     for val in test_data:
         dut._log.info(f"Running Writer {val}")
-        while dut.full.value:
+        while dut.full.value == 1:
             await RisingEdge(dut.clk_w)
         dut.data_w.value = val
         dut.we_i.value = 1
@@ -47,9 +47,9 @@ async def writer(dut, test_data):
 async def reader(dut, num_items, expected_data):
     dut._log.info(f"Starting Reader {expected_data}")
     read_data = []
-    await Timer(100, units="ns")  # Delay to allow writes to get started
+    # await Timer(100, units="ns")  # Delay to allow writes to get started
     for _ in range(num_items):
-        while dut.empty.value:
+        while dut.empty.value == 1:
             await RisingEdge(dut.clk_r)
 
         # Assert read enable
@@ -90,5 +90,21 @@ async def template_test(dut):
 
     await cocotb.start_soon(writer(dut, test_data))
     await cocotb.start_soon(reader(dut, len(test_data), test_data))
+
+    Timer(2200, units="ns")
+
+@cocotb.test()
+async def concur_test(dut):
+    cocotb.start_soon(Clock(dut.clk_r, 13, units='ns').start())
+    cocotb.start_soon(Clock(dut.clk_w, 7, units='ns').start())
+
+    await reset_fifo(dut)
+    test_data = [random.randint(0, 255) for _ in range(8)]
+
+    task1 = cocotb.start_soon(writer(dut, test_data))
+    task2 = cocotb.start_soon(reader(dut, len(test_data), test_data))
+
+    await task1
+    await task2
 
     Timer(2200, units="ns")

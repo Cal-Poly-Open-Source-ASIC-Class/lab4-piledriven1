@@ -12,7 +12,7 @@ module fifo_mem #(
     input logic full, empty,
     output logic [DATA_WIDTH-1:0] data_out
 );
-    logic [DATA_WIDTH-1:0] fifo[0:DEPTH-1];
+    logic [DATA_WIDTH-1:0] fifo[DEPTH];
 
     always_ff @ (posedge clk_w) begin
         if(w_en & !full) begin
@@ -20,7 +20,7 @@ module fifo_mem #(
         end
     end
     
-    always@(posedge clk_r) begin
+    always_ff @(posedge clk_r) begin
         if(arst) begin
             data_out <= 0;
         end

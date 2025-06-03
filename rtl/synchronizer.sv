@@ -8,7 +8,7 @@ module synchronizer #(
     output logic [WIDTH:0] d_out
 );
     logic [WIDTH:0] q1;
-    always_ff @ (posedge clk or posedge arst) begin
+    always_ff @ (posedge clk) begin
         if(arst) begin
             q1 <= 0;
             d_out <= 0;
